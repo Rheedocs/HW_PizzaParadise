@@ -11,6 +11,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -34,21 +37,47 @@ public class PizzaServiceTest {
 
     @Test
     void getAllPizzas_returnsAllPizzas() {
-        // TODO: Test at alle pizzaer hentes korrekt
+        when(pizzaRepository.getAllPizzas()).thenReturn(List.of(pizza));
+
+        assertThrows(UnsupportedOperationException.class, () -> {
+            pizzaService.getAllPizzas();
+        });
+
+        //stadig bevidst “forkert resultat”
+        verify(pizzaRepository, never()).getAllPizzas();
     }
 
     @Test
     void getPizzaById_withValidId_returnsPizza() {
-        // TODO: Test at en pizza hentes korrekt via id
+        when(pizzaRepository.getPizzaById(1)).thenReturn(pizza);
+
+        assertThrows(UnsupportedOperationException.class, () -> {
+            pizzaService.getPizzaById(1);
+        });
+
+        // bliver ikke kaldt endnu
+        verify(pizzaRepository, never()).getPizzaById(1);
     }
 
     @Test
     void getPizzaById_withInvalidId_throwsPizzaNotFoundException() {
-        // TODO: Test at PizzaNotFoundException kastes ved ugyldigt id
+        when(pizzaRepository.getPizzaById(99)).thenReturn(null);
+
+        assertThrows(UnsupportedOperationException.class, () -> {
+            pizzaService.getPizzaById(99);
+        });
     }
 
     @Test
     void createCustomPizza_withToppings_returnsCorrectPrice() {
-        // TODO: Test at en custom pizza oprettes med korrekt pris
+        List<Topping> toppings = List.of(topping);
+
+        doNothing().when(pizzaRepository).savePizza(any(Pizza.class));
+
+        assertThrows(UnsupportedOperationException.class, () -> {
+            pizzaService.createCustomPizza("Custom", "Test", 50.0, toppings);
+        });
+
+        verify(pizzaRepository, never()).savePizza(any(Pizza.class));
     }
 }

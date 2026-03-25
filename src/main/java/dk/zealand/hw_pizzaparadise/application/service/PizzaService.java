@@ -17,11 +17,20 @@ public class PizzaService {
     }
 
     public void savePizza(Pizza pizza) {
-        // TODO: Gem pizza i databasen
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (pizza == null){
+            throw new IllegalArgumentException("Pizza cannot be null");
+        }
+        pizzaRepository.savePizza(pizza);
+
+        //throw new UnsupportedOperationException("Not implemented yet");
     }
 
     public Pizza getPizzaById(int id) {
+        Pizza pizza = pizzaRepository.getPizzaById(id);
+
+        if (pizza == null){
+            throw new RuntimeException("Pizza not found with id " + id);
+        }
         // TODO: Hent pizza baseret på id
         throw new UnsupportedOperationException("Not implemented yet");
     }
