@@ -122,6 +122,6 @@ public class UserService {
             throw new UserNotFoundException("Bruger ikke fundet");
         }
 
-        user.addBonusPoints(points);
+        userRepository.updateUser(user);
     }
 }
