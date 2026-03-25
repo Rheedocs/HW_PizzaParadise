@@ -1,16 +1,35 @@
 package dk.zealand.hw_pizzaparadise.application;
 
+import dk.zealand.hw_pizzaparadise.application.interfaces.IPizzaRepository;
 import dk.zealand.hw_pizzaparadise.application.service.PizzaService;
+import dk.zealand.hw_pizzaparadise.domain.Pizza;
+import dk.zealand.hw_pizzaparadise.domain.Topping;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
 public class PizzaServiceTest {
 
+    @Mock
+    private IPizzaRepository pizzaRepository;
+
+    @InjectMocks
     private PizzaService pizzaService;
+
+    private Pizza pizza;
+    private Topping topping;
 
     @BeforeEach
     void setUp() {
-        // TODO: Opsæt PizzaService med mock repository
+        pizza = new Pizza(1, "Margherita", "Classic pizza", 79.0);
+        topping = new Topping(1, "Mozzarella", 10.0);
     }
 
     @Test
