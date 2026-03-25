@@ -32,4 +32,10 @@ public class UserTest {
 
         assertEquals(35, user.getBonusPoints());
     }
+    @Test
+    void passwordIsHidden(){
+        String result = user.toString();
+        assertFalse(result.contains("1234"));
+    }
+
 }

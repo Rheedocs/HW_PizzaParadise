@@ -2,6 +2,7 @@ package dk.zealand.hw_pizzaparadise.infrastructure;
 
 import dk.zealand.hw_pizzaparadise.application.interfaces.IUserRepository;
 import dk.zealand.hw_pizzaparadise.domain.User;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,39 +10,73 @@ import java.util.List;
 @Repository
 public class UserRepository implements IUserRepository {
 
+    private final JdbcTemplate jdbcTemplate;
+
+    public UserRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     @Override
-    public void saveUser(User user) {
-        // TODO: Gem bruger i databasen via JDBC
-        throw new UnsupportedOperationException("Not implemented yet");
+    public void saveUser(User user){
+        String sql = "INSERT INTO users (name, email, address, bonus_point, password) VALUES (?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, user.getName(), user.getEmail(), user.getAddress(), user.getBonusPoints());
+    }
+
+    @Override
+    public void deleteUser(int id) {
+        String sql = "DELETE FROM users WHERE id = ?";
+        jdbcTemplate.update(sql, id);
     }
 
     @Override
     public User getUserById(int id) {
-        // TODO: Hent bruger fra databasen baseret på id
-        throw new UnsupportedOperationException("Not implemented yet");
+        String sql = "SELECT * FROM users WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> {
+            User user = new User(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("email"),
+                    rs.getString("address")
+            );
+            user.setBonusPoints(rs.getInt("bonus_points"));
+            return user;
+        }, id);
     }
 
     @Override
     public User getUserByEmail(String email) {
         // TODO: Hent bruger fra databasen baseret på email
-        throw new UnsupportedOperationException("Not implemented yet");
+        String sql = "SELECT * FROM users WHERE email = ?";
+        return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> {
+            User user = new User(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("email"),
+                    rs.getString("address")
+            );
+            user.setBonusPoints(rs.getInt("bonus_points"));
+            return user;
+        }, email);
     }
 
     @Override
     public void updateUser(User user) {
-        // TODO: Opdater bruger i databasen
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
-
-    @Override
-    public void deleteUser(int id) {
-        // TODO: Slet bruger fra databasen baseret på id
-        throw new UnsupportedOperationException("Not implemented yet");
+        String sql = "UPDATE users SET name = ?, email = ?, address = ?, bonus_points = ?, password = ? WHERE id = ?";
+        jdbcTemplate.update(sql, user.getName(), user.getEmail(), user.getAddress(), user.getBonusPoints(), user.getId());
     }
 
     @Override
     public List<User> getAllUsers() {
-        // TODO: Hent alle brugere fra databasen
-        throw new UnsupportedOperationException("Not implemented yet");
+        String sql = "SELECT * FROM users";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            User user = new User(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("email"),
+                    rs.getString("address")
+            );
+            user.setBonusPoints(rs.getInt("bonus_points"));
+            return user;
+        });
     }
 }

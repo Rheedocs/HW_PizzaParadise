@@ -31,4 +31,11 @@ public class User {
     public void addBonusPoints(int points) {
         this.bonusPoints += points;
     }
+
+
+    @Override
+    public String toString(){
+        return "Id: " + id + " Name: " + name + " Email: " + email + " Address: " + address + " Password:[hidden] ";
+    }
+
 }
