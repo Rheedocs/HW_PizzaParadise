@@ -2,10 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
-    <title>Pizza Paradise</title>
+    <title>Pizza Paradise - Ordrehistorik</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<!-- TODO: Implementer side -->
+<h1>Ordrehistorik</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Ordre ID</th>
+        <th>Dato</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.date}"></td>
+        <td th:text="${order.calculateTotal()}"></td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/}">Tilbage til forsiden</a>
 </body>
 </html>

@@ -3,6 +3,9 @@ package dk.zealand.hw_pizzaparadise.application.service;
 import dk.zealand.hw_pizzaparadise.application.interfaces.IOrderRepository;
 import dk.zealand.hw_pizzaparadise.application.interfaces.IUserRepository;
 import dk.zealand.hw_pizzaparadise.domain.Order;
+import dk.zealand.hw_pizzaparadise.domain.User;
+import dk.zealand.hw_pizzaparadise.domain.exceptions.EmptyOrderException;
+import dk.zealand.hw_pizzaparadise.domain.exceptions.InsufficientBonusPointsException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,27 +22,38 @@ public class OrderService {
     }
 
     public void placeOrder(Order order) {
-        // TODO: Gem ordre og tildel bonuspoint til bruger
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (order.getPizzas().isEmpty()) {
+            throw new EmptyOrderException();
+        }
+        orderRepository.saveOrder(order);
+        addBonusPointsToUser(order);
     }
 
+    private void addBonusPointsToUser(Order order) {
+        User user = userRepository.getUserById(order.getUserId());
+        int pointsEarned = (int) order.calculateTotal() / 10;
+        user.addBonusPoints(pointsEarned);
+        userRepository.updateUser(user);
+    }
+
+
     public Order getOrderById(int id) {
-        // TODO: Hent ordre baseret på id
-        throw new UnsupportedOperationException("Not implemented yet");
+        return orderRepository.getOrderById(id);
     }
 
     public List<Order> getOrdersByUserId(int userId) {
-        // TODO: Hent alle ordrer for en bestemt bruger
-        throw new UnsupportedOperationException("Not implemented yet");
+        return orderRepository.getOrdersByUserId(userId);
     }
 
     public void deleteOrder(int id) {
-        // TODO: Slet ordre baseret på id
-        throw new UnsupportedOperationException("Not implemented yet");
+        orderRepository.deleteOrder(id);
     }
 
     public double calculateDiscount(int userId) {
-        // TODO: Beregn rabat baseret på brugerens bonuspoint
-        throw new UnsupportedOperationException("Not implemented yet");
+        User user = userRepository.getUserById(userId);
+        if (user.getBonusPoints() <= 0) {
+            throw new InsufficientBonusPointsException(user.getBonusPoints(), 1);
+        }
+        return user.getBonusPoints() * 0.1;
     }
 }

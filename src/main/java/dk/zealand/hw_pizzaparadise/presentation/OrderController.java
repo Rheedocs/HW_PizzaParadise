@@ -18,25 +18,26 @@ public class OrderController {
 
     @GetMapping
     public String getAllOrders(Model model) {
-        // TODO: Hent alle ordrer og send til view – return "order/order"
-        throw new UnsupportedOperationException("Not implemented yet");
+        // TODO: Erstat 1 med den faktiske logged-in brugers id
+        model.addAttribute("orders", orderService.getOrdersByUserId(1));
+        return "order/order";
     }
 
     @GetMapping("/{id}")
     public String getOrderById(@PathVariable int id, Model model) {
-        // TODO: Hent ordre og send til view – return "order/order"
-        throw new UnsupportedOperationException("Not implemented yet");
+        model.addAttribute("order", orderService.getOrderById(id));
+        return "order/order";
     }
 
     @PostMapping("/place")
     public String placeOrder(@ModelAttribute Order order) {
-        // TODO: Placer ordre og redirect til ordrehistorik – return "redirect:/orders"
-        throw new UnsupportedOperationException("Not implemented yet");
+        orderService.placeOrder(order);
+        return "redirect:/orders";
     }
 
     @GetMapping("/user/{userId}")
     public String getOrdersByUserId(@PathVariable int userId, Model model) {
-        // TODO: Hent alle ordrer for bruger og send til view – return "order/order-history"
-        throw new UnsupportedOperationException("Not implemented yet");
+        model.addAttribute("orders", orderService.getOrdersByUserId(userId));
+        return "order/order-history";
     }
 }

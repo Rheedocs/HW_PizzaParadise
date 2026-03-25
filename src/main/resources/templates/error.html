@@ -2,10 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
-    <title>Pizza Paradise</title>
+    <title>Pizza Paradise - Fejl</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<!-- TODO: Implementer side -->
+<h1>Ups! Noget gik galt 😕</h1>
+<ul>
+    <li th:each="fejlBesked : ${fejl}" th:text="${fejlBesked}"></li>
+</ul>
+<a th:href="@{/}">Tilbage til forsiden</a>
 </body>
 </html>

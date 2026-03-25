@@ -10,42 +10,44 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.List;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     public String handleUserNotFound(UserNotFoundException ex, Model model) {
-        model.addAttribute("fejl", ex.getMessage());
+        model.addAttribute("fejl", List.of(ex.getMessage()));
         return "error";
     }
 
     @ExceptionHandler(PizzaNotFoundException.class)
     public String handlePizzaNotFound(PizzaNotFoundException ex, Model model) {
-        model.addAttribute("fejl", ex.getMessage());
+        model.addAttribute("fejl", List.of(ex.getMessage()));
         return "error";
     }
 
     @ExceptionHandler(OrderNotFoundException.class)
     public String handleOrderNotFound(OrderNotFoundException ex, Model model) {
-        model.addAttribute("fejl", ex.getMessage());
+        model.addAttribute("fejl", List.of(ex.getMessage()));
         return "error";
     }
 
     @ExceptionHandler(EmptyOrderException.class)
     public String handleEmptyOrder(EmptyOrderException ex, Model model) {
-        model.addAttribute("fejl", ex.getMessage());
+        model.addAttribute("fejl", List.of(ex.getMessage()));
         return "error";
     }
 
     @ExceptionHandler(InsufficientBonusPointsException.class)
     public String handleInsufficientBonusPoints(InsufficientBonusPointsException ex, Model model) {
-        model.addAttribute("fejl", ex.getMessage());
+        model.addAttribute("fejl", List.of(ex.getMessage()));
         return "error";
     }
 
     @ExceptionHandler(DatabaseException.class)
     public String handleDatabaseException(DatabaseException ex, Model model) {
-        model.addAttribute("fejl", ex.getMessage());
+        model.addAttribute("fejl", List.of(ex.getMessage()));
         return "error";
     }
 }

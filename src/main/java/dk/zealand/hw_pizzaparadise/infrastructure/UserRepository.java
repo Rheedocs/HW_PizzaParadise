@@ -17,15 +17,9 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public void saveUser(User user){
-        String sql = "INSERT INTO users (name, email, address, bonus_point, password) VALUES (?, ?, ?, ?, ?)";
+    public void saveUser(User user) {
+        String sql = "INSERT INTO users (name, email, address, bonus_points) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql, user.getName(), user.getEmail(), user.getAddress(), user.getBonusPoints());
-    }
-
-    @Override
-    public void deleteUser(int id) {
-        String sql = "DELETE FROM users WHERE id = ?";
-        jdbcTemplate.update(sql, id);
     }
 
     @Override
@@ -45,7 +39,6 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public User getUserByEmail(String email) {
-        // TODO: Hent bruger fra databasen baseret på email
         String sql = "SELECT * FROM users WHERE email = ?";
         return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> {
             User user = new User(
@@ -61,8 +54,14 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public void updateUser(User user) {
-        String sql = "UPDATE users SET name = ?, email = ?, address = ?, bonus_points = ?, password = ? WHERE id = ?";
+        String sql = "UPDATE users SET name = ?, email = ?, address = ?, bonus_points = ? WHERE id = ?";
         jdbcTemplate.update(sql, user.getName(), user.getEmail(), user.getAddress(), user.getBonusPoints(), user.getId());
+    }
+
+    @Override
+    public void deleteUser(int id) {
+        String sql = "DELETE FROM users WHERE id = ?";
+        jdbcTemplate.update(sql, id);
     }
 
     @Override
