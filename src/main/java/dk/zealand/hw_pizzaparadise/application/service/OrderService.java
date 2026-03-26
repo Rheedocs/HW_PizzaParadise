@@ -31,11 +31,14 @@ public class OrderService {
 
     private void addBonusPointsToUser(Order order) {
         User user = userRepository.getUserById(order.getUserId());
-        int pointsEarned = (int) order.calculateTotal() / 10;
+        int pointsEarned = (int) (order.calculateTotal() / 10);
         user.addBonusPoints(pointsEarned);
         userRepository.updateUser(user);
     }
 
+    public double getOrderTotal(int id) {
+        return orderRepository.getOrderById(id).calculateTotal();
+    }
 
     public Order getOrderById(int id) {
         return orderRepository.getOrderById(id);
@@ -49,6 +52,7 @@ public class OrderService {
         orderRepository.deleteOrder(id);
     }
 
+    // TODO: Bruges når bonuspoint integreres i bestillingsflowet
     public double calculateDiscount(int userId) {
         User user = userRepository.getUserById(userId);
         if (user.getBonusPoints() <= 0) {

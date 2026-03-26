@@ -99,4 +99,14 @@ public class OrderServiceTest {
 
         verify(orderRepository).deleteOrder(1);
     }
+
+    @Test
+    void getOrderTotal_withValidId_returnsTotal() {
+        order.addPizza(new Pizza(1, "Margherita", "Classic Pizza", 79.0));
+        when(orderRepository.getOrderById(1)).thenReturn(order);
+
+        double result = orderService.getOrderTotal(1);
+
+        assertEquals(79.0, result);
+    }
 }

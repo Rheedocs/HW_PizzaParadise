@@ -26,7 +26,7 @@
     </tbody>
 </table>
 
-<p>Total: <span th:text="${order.calculateTotal()}"></span> kr</p>
-<a th:href="@{/orders/user/{id}(id=${order.userId})}">Tilbage til ordrehistorik</a>
+<p>Total: <span th:text="${total}"></span> kr</p>
+<a th:href="@{/orders}">Tilbage til ordrehistorik</a>
 </body>
 </html>
