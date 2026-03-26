@@ -6,6 +6,56 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<!-- TODO: Implementer side -->
+
+<div class="container">
+
+    <h1>Lav din egen pizza</h1>
+
+    <form th:action="@{/pizzas/custom}" method="post" th:object="${pizza}">
+
+        <div>
+            <label>Navn:</label>
+            <input type="text" th:field="*{name}" required>
+        </div>
+
+        <br>
+
+        <div>
+            <label>Beskrivelse:</label>
+            <input type="text" th:field="*{description}">
+        </div>
+
+        <br>
+
+        <div>
+            <label>Base pris:</label>
+            <input type="number" step="0.1" th:field="*{basePrice}" required>
+        </div>
+
+        <br>
+
+        <h3>Vælg toppings:</h3>
+
+        <div th:each="topping : ${toppings}">
+            <label>
+                <input type="checkbox" name="toppingIds" th:value="${topping.id}">
+                <span th:text="${topping.name}"></span>
+                (<span th:text="${topping.price}"></span> kr)
+            </label>
+            <br>
+        </div>
+
+        <br>
+
+        <button type="submit">Opret pizza</button>
+
+    </form>
+
+    <br>
+
+    <a th:href="@{/pizzas}">← Tilbage til menu</a>
+
+</div>
+
 </body>
 </html>

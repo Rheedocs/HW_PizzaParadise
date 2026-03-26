@@ -48,6 +48,9 @@ public class PizzaService {
         if (name == null || name.isEmpty() || description == null || description.isEmpty() || toppings == null || toppings.isEmpty()) {
             throw new IllegalArgumentException("Navn, beskrivelse og toppings må ikke være tomme");
         }
+        if (basePrice <= 0) {
+            throw new IllegalArgumentException("Basispris skal være større end 0");
+        }
         Pizza customPizza = new Pizza(0, name, description, basePrice);
         customPizza.setToppings(toppings);
         pizzaRepository.savePizza(customPizza);
