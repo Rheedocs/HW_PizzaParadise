@@ -1,1 +1,61 @@
-/* TODO: Implementer styling (duh) */
+/* Reset + font */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+
+    /* Center hele siden */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 100vh;
+    background-color: #f4f4f4;
+}
+
+/* Container der bliver centreret */
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Tekst */
+h1, h3 {
+    text-align: center;
+}
+
+/* Tabel */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+/* Inputs */
+input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+/* Knap */
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}

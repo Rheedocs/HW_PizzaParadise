@@ -18,6 +18,9 @@ public class Pizza {
         this.basePrice = basePrice;
         this.toppings = new ArrayList<>();
     }
+    public Pizza(){
+        this.toppings = new ArrayList<>();
+    }
 
     public int getId() { return id; }
     public String getName() { return name; }

@@ -6,6 +6,39 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<!-- TODO: Implementer side -->
+
+<div class="container">
+
+    <h1>Pizza Paradise Menu</h1>
+
+    <a th:href="@{/pizzas/custom}">Lav din egen pizza</a>
+
+    <br><br>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Navn</th>
+            <th>Beskrivelse</th>
+            <th>Pris</th>
+            <th>Detaljer</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pizza : ${pizzas}">
+            <td th:text="${pizza.name}"></td>
+            <td th:text="${pizza.description}"></td>
+            <td th:text="${pizza.basePrice}"></td>
+            <td><a th:href="@{/pizzas/{id}(id=${pizza.id})}">Se detaljer</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${pizzas == null or #lists.isEmpty(pizzas)}">
+        <p>Ingen pizzaer fundet.</p>
+    </div>
+
+</div>
+
 </body>
 </html>

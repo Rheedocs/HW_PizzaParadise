@@ -37,7 +37,7 @@ public class PizzaRepository implements IPizzaRepository {
 
     @Override
     public void savePizza(Pizza pizza) {
-        String sql = "INSERT INTO pizzaparadise (name, description, price) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO pizzas (name, description, price) VALUES (?, ?, ?)";
 
         jdbcTemplate.update(sql,
                 pizza.getName(),
@@ -48,7 +48,7 @@ public class PizzaRepository implements IPizzaRepository {
 
     @Override
     public Pizza getPizzaById(int id) {
-        String sql = "SELECT * FROM pizzaparadise WHERE id = ?";
+        String sql = "SELECT * FROM pizzas WHERE id = ?";
 
         List<Pizza> result = jdbcTemplate.query(sql, pizzaRowMapper, id);
 
@@ -57,21 +57,21 @@ public class PizzaRepository implements IPizzaRepository {
 
     @Override
     public List<Pizza> getAllPizzas() {
-        String sql = "SELECT * FROM pizzaparadise";
+        String sql = "SELECT * FROM pizzas";
 
         return jdbcTemplate.query(sql, pizzaRowMapper);
     }
 
     @Override
     public void deletePizza(int id) {
-        String sql = "DELETE FROM pizzaparadise WHERE id = ?";
+        String sql = "DELETE FROM pizzas WHERE id = ?";
 
         jdbcTemplate.update(sql, id);
     }
 
     @Override
     public List<Topping> getAllToppings() {
-        String sql = "SELECT * FROM topping";
+        String sql = "SELECT * FROM toppings";
 
         return jdbcTemplate.query(sql, toppingRowMapper);
     }
