@@ -22,7 +22,7 @@ public class OrderController {
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId == null) return "redirect:/users/login";
         model.addAttribute("orders", orderService.getOrdersByUserId(userId));
-        return "order/order-history"; // ← ret til dette
+        return "order/order-history";
     }
 
     @GetMapping("/{id}")

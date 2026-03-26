@@ -6,10 +6,20 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Ups! Noget gik galt 😕</h1>
-<ul>
-    <li th:each="fejlBesked : ${fejl}" th:text="${fejlBesked}"></li>
-</ul>
-<a th:href="@{/}">Tilbage til forsiden</a>
+<header>
+    <h1><span>🍕</span> Pizza Paradise</h1>
+    <nav>
+        <a th:href="@{/}">Forside</a>
+    </nav>
+</header>
+<main>
+    <div class="error-container">
+        <h1>Ups! Noget gik galt 😕</h1>
+        <ul class="error-list">
+            <li th:each="fejlBesked : ${fejl}" th:text="${fejlBesked}"></li>
+        </ul>
+        <a class="btn" th:href="@{/}">Tilbage til forsiden</a>
+    </div>
+</main>
 </body>
 </html>

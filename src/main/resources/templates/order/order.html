@@ -6,27 +6,37 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Ordre detaljer</h1>
-<p>Ordre ID: <span th:text="${order.id}"></span></p>
-<p>Dato: <span th:text="${order.date}"></span></p>
+<header>
+    <h1><span>🍕</span> Pizza Paradise</h1>
+    <nav>
+        <a th:href="@{/pizzas}">Se menu</a>
+        <a th:href="@{/orders}">Mine ordrer</a>
+        <a th:href="@{/}">Forside</a>
+    </nav>
+</header>
+<main>
+    <h1>Ordre detaljer</h1>
+    <p>Ordre ID: <span th:text="${order.id}"></span></p>
+    <p>Dato: <span th:text="${order.date}"></span></p>
 
-<h2>Pizzaer</h2>
-<table>
-    <thead>
-    <tr>
-        <th>Navn</th>
-        <th>Pris</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="pizza : ${order.pizzas}">
-        <td th:text="${pizza.name}"></td>
-        <td th:text="${pizza.calculatePrice()}"></td>
-    </tr>
-    </tbody>
-</table>
+    <h2>Pizzaer</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Navn</th>
+            <th>Pris</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pizza : ${order.pizzas}">
+            <td th:text="${pizza.name}"></td>
+            <td th:text="${pizza.calculatePrice()}"></td>
+        </tr>
+        </tbody>
+    </table>
 
-<p>Total: <span th:text="${total}"></span> kr</p>
-<a th:href="@{/orders}">Tilbage til ordrehistorik</a>
+    <p><strong>Total: <span th:text="${total}"></span> kr</strong></p>
+    <a class="btn" th:href="@{/orders}">Tilbage til ordrehistorik</a>
+</main>
 </body>
 </html>

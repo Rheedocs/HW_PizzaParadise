@@ -1,61 +1,123 @@
-/* Reset + font */
+/* Grundlæggende */
 body {
-    margin: 0;
     font-family: Arial, sans-serif;
+    background-color: #fff8f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
 
-    /* Center hele siden */
+/* Header */
+header {
+    background-color: #c0392b;
+    padding: 16px 32px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-
-    min-height: 100vh;
-    background-color: #f4f4f4;
 }
 
-/* Container der bliver centreret */
-.container {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-
-    width: 100%;
-    max-width: 600px;
+header h1 {
+    color: white;
+    font-size: 24px;
 }
 
-/* Tekst */
-h1, h3 {
-    text-align: center;
+/* Navigation */
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 16px;
+    font-size: 16px;
 }
 
-/* Tabel */
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Indhold */
+main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 24px;
+}
+
+h1, h2 {
+    color: #c0392b;
+    margin-bottom: 16px;
+}
+
+/* Tabeller */
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 16px;
 }
 
 th, td {
     padding: 10px;
-    text-align: center;
+    border: 1px solid #ccc;
+    text-align: left;
 }
 
-/* Inputs */
-input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-}
-
-/* Knap */
-button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #28a745;
+thead {
+    background-color: #c0392b;
     color: white;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
-button:hover {
-    background-color: #218838;
+/* Formularer */
+input, select {
+    display: block;
+    width: 250px;
+    margin: 8px 0 16px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+/* Knapper */
+button, .btn {
+    padding: 10px 20px;
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+button:hover, .btn:hover {
+    background-color: #a93226;
+}
+
+/* Links */
+a {
+    color: #c0392b;
+}
+
+/* Fejl */
+ul.error-list {
+    list-style: none;
+    padding: 0;
+}
+
+ul.error-list li {
+    color: #c0392b;
+    padding: 4px 0;
+}
+
+/* Box */
+.box {
+    text-align: center;
+    margin-top: 80px;
+}
+
+.error-container, .success-container {
+    max-width: 500px;
+    margin: 60px auto;
+    text-align: center;
 }

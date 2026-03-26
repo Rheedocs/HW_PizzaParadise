@@ -6,13 +6,22 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Velkommen til Pizza Paradise 🍕</h1>
-<nav>
-    <a th:href="@{/pizzas}">Se menu</a>
-    <a th:href="@{/users/create}" th:if="${session.userId == null}">Opret bruger</a>
-    <a th:href="@{/users/login}" th:if="${session.userId == null}">Log ind</a>
-    <a th:href="@{/users/logout}" th:if="${session.userId != null}">Log ud</a>
-    <a th:href="@{/orders}" th:if="${session.userId != null}">Mine ordrer</a>
-</nav>
+<header>
+    <h1><span>🍕</span> Pizza Paradise</h1>
+    <nav>
+        <a th:href="@{/pizzas}">Se menu</a>
+        <a th:href="@{/users/create}" th:if="${session.userId == null}">Opret bruger</a>
+        <a th:href="@{/users/login}" th:if="${session.userId == null}">Log ind</a>
+        <a th:href="@{/users/logout}" th:if="${session.userId != null}">Log ud</a>
+        <a th:href="@{/orders}" th:if="${session.userId != null}">Mine ordrer</a>
+    </nav>
+</header>
+<main>
+    <div class="box">
+        <h1>Velkommen til Pizza Paradise 🍕</h1>
+        <p>Bestil lækker pizza online – hurtigt og nemt!</p>
+        <a class="btn" th:href="@{/pizzas}">Se vores menu</a>
+    </div>
+</main>
 </body>
 </html>
