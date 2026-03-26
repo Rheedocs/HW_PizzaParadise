@@ -10,10 +10,9 @@
     <h1><span>🍕</span> Pizza Paradise</h1>
     <nav>
         <a th:href="@{/pizzas}">Se menu</a>
-        <a th:href="@{/users/create}" th:if="${session.userId == null}">Opret bruger</a>
-        <a th:href="@{/users/login}" th:if="${session.userId == null}">Log ind</a>
-        <a th:href="@{/users/logout}" th:if="${session.userId != null}">Log ud</a>
-        <a th:href="@{/orders}" th:if="${session.userId != null}">Mine ordrer</a>
+        <a th:href="@{/users/create}">Opret bruger</a>
+        <a th:href="@{/users/login}">Log ind</a>
+        <a th:href="@{/orders}">Mine ordrer</a>
     </nav>
 </header>
 <main>

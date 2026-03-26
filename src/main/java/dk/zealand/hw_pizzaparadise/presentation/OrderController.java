@@ -18,10 +18,9 @@ public class OrderController {
     }
 
     @GetMapping
-    public String getAllOrders(Model model, HttpSession session) {
-        Integer userId = (Integer) session.getAttribute("userId");
-        if (userId == null) return "redirect:/users/login";
-        model.addAttribute("orders", orderService.getOrdersByUserId(userId));
+    public String getAllOrders(Model model) {
+        // TODO: Erstat 1 med den faktiske logged-in brugers id
+        model.addAttribute("orders", orderService.getOrdersByUserId(1));
         return "order/order-history";
     }
 

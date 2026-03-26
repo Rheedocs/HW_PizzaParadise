@@ -45,4 +45,16 @@ public class UserController {
         // TODO: Hent ordrehistorik for bruger og send til view – return "order/order-history"
         throw new UnsupportedOperationException("Not implemented yet");
     }
+
+    @GetMapping("/login")
+    public String showLoginForm() {
+        return "user/login";
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestParam String email, Model model) {
+        User user = userService.getUserByEmail(email);
+        model.addAttribute("besked", "Velkommen " + user.getName() + "!");
+        return "success";
+    }
 }
