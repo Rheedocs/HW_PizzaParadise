@@ -44,8 +44,7 @@ Det gør koden lettere at forstå, lettere at teste og lettere at arbejde på i 
 **Hvad hvis databaseteknologien skal ændres?**
 Infrastructure-laget er det eneste sted der ved noget om MySQL og JDBC.
 Hvis vi skiftede til fx PostgreSQL, skulle vi kun ændre i repositories.
-Domain, Application og Presentation ville slet ikke mærke ændringen, da
-de kommunikerer kun via interfaces.
+Domain ændres ikke fordi det kun beskriver data og regler. Application ændres heller ikke fordi det kalder på Repository metoder gennem interfaces uden at bekymre sig om vores database. Presentation ville slet ikke mærke ændringer da den kun bruger service metoderne, og ikke behøver at vide noget om databasen.
 
 ## Kør projektet
 1. Opret en MySQL database kaldet `pizzaparadise`
