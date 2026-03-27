@@ -7,7 +7,6 @@ import dk.zealand.hw_pizzaparadise.domain.Order;
 import dk.zealand.hw_pizzaparadise.domain.Pizza;
 import dk.zealand.hw_pizzaparadise.domain.User;
 import dk.zealand.hw_pizzaparadise.domain.exceptions.EmptyOrderException;
-import dk.zealand.hw_pizzaparadise.domain.exceptions.InsufficientBonusPointsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -74,14 +73,6 @@ public class OrderServiceTest {
         List<Order> result = orderService.getOrdersByUserId(1);
 
         assertEquals(1, result.size());
-    }
-
-    @Test
-    void calculateDiscount_withInsufficientPoints_throwsException() {
-        user.setBonusPoints(0);
-        when(userRepository.getUserById(1)).thenReturn(user);
-
-        assertThrows(InsufficientBonusPointsException.class, () -> orderService.calculateDiscount(1));
     }
 
     @Test

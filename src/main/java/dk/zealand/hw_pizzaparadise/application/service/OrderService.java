@@ -6,10 +6,8 @@ import dk.zealand.hw_pizzaparadise.domain.Order;
 import dk.zealand.hw_pizzaparadise.domain.Pizza;
 import dk.zealand.hw_pizzaparadise.domain.User;
 import dk.zealand.hw_pizzaparadise.domain.exceptions.EmptyOrderException;
-import dk.zealand.hw_pizzaparadise.domain.exceptions.InsufficientBonusPointsException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -66,12 +64,5 @@ public class OrderService {
 
     public void deleteOrder(int id) {
         orderRepository.deleteOrder(id);
-    }
-
-    // TODO: Bruges når bonuspoint integreres i bestillingsflowet
-    public double calculateDiscount(int userId) {
-        User user = userRepository.getUserById(userId);
-        if (user.getBonusPoints() <= 0) throw new InsufficientBonusPointsException(user.getBonusPoints(), 1);
-        return user.getBonusPoints() * 0.1;
     }
 }
