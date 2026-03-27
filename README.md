@@ -1,4 +1,7 @@
 # Pizza Paradise – Pizzabestillingssystem
+<img src="docs/img.png" height="250">,<img src="docs/img_2.png" height="250">,<img src="docs/img_1.png" width="1000">
+
+---
 
 ## Beskrivelse
 
@@ -10,7 +13,6 @@ Zealand Erhvervsakademi Næstved.
 DAT-2025, 2. Semester.
 
 ---
-
 ## Funktionalitet
 
 * Brugeroprettelse og login via email
@@ -55,7 +57,7 @@ Services kommunikerer kun med interfaces (`IPizzaRepository`, `IOrderRepository`
 `OrderController` håndterer bestilling og ordrehistorik.
 Controllers indeholder ingen forretningslogik, men fungerer som bindeled mellem bruger og system.
 
-<img src="docs/klassediagram.png" width="600">
+<img src="docs/klassediagram.png" width="700" alt="">
 
 ---
 
