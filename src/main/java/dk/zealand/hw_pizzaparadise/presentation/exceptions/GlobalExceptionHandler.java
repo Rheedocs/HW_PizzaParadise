@@ -45,6 +45,12 @@ public class GlobalExceptionHandler {
         return "error";
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public String handleIllegalArgument(IllegalArgumentException ex, Model model) {
+        model.addAttribute("fejl", List.of(ex.getMessage()));
+        return "error";
+    }
+
     @ExceptionHandler(DatabaseException.class)
     public String handleDatabaseException(DatabaseException ex, Model model) {
         model.addAttribute("fejl", List.of(ex.getMessage()));

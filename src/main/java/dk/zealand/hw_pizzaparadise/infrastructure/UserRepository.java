@@ -1,7 +1,10 @@
 package dk.zealand.hw_pizzaparadise.infrastructure;
 
 import dk.zealand.hw_pizzaparadise.application.interfaces.IUserRepository;
+import dk.zealand.hw_pizzaparadise.domain.Pizza;
 import dk.zealand.hw_pizzaparadise.domain.User;
+import dk.zealand.hw_pizzaparadise.infrastructure.mappers.PizzaRowMapper;
+import dk.zealand.hw_pizzaparadise.infrastructure.mappers.UserRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -17,16 +20,7 @@ public class UserRepository implements IUserRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private final RowMapper<User> userRowMapper = (rs, rowNum) -> {
-        User user = new User(
-                rs.getInt("id"),
-                rs.getString("name"),
-                rs.getString("email"),
-                rs.getString("address")
-        );
-        user.setBonusPoints(rs.getInt("bonus_points"));
-        return user;
-    };
+    private final RowMapper<User> userRowMapper = new UserRowMapper();
 
     @Override
     public void saveUser(User user) {

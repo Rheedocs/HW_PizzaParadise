@@ -48,8 +48,8 @@ public class UserServiceTest {
     }
 
     @Test
-    void getUserById_withInvalidId_throwsUserNotFoundException() {
-        assertThrows(UserNotFoundException.class, () -> userService.getUserById(-1));
+    void getUserById_withInvalidId_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> userService.getUserById(-1));
     }
 
     @Test

@@ -9,6 +9,7 @@ public class Pizza {
     private String name;
     private String description;
     private double basePrice;
+    private boolean isCustom;
     private List<Topping> toppings;
 
     public Pizza(int id, String name, String description, double basePrice) {
@@ -16,9 +17,11 @@ public class Pizza {
         this.name = name;
         this.description = description;
         this.basePrice = basePrice;
+        this.isCustom = false;
         this.toppings = new ArrayList<>();
     }
-    public Pizza(){
+
+    public Pizza() {
         this.toppings = new ArrayList<>();
     }
 
@@ -26,12 +29,14 @@ public class Pizza {
     public String getName() { return name; }
     public String getDescription() { return description; }
     public double getBasePrice() { return basePrice; }
+    public boolean isCustom() { return isCustom; }
     public List<Topping> getToppings() { return toppings; }
 
     public void setId(int id) { this.id = id; }
     public void setName(String name) { this.name = name; }
     public void setDescription(String description) { this.description = description; }
     public void setBasePrice(double basePrice) { this.basePrice = basePrice; }
+    public void setCustom(boolean isCustom) { this.isCustom = isCustom; }
     public void setToppings(List<Topping> toppings) { this.toppings = toppings; }
 
     public void addTopping(Topping topping) {
@@ -44,9 +49,7 @@ public class Pizza {
 
     public double calculatePrice() {
         double total = basePrice;
-        for (Topping topping : toppings) {
-            total += topping.getPrice();
-        }
+        for (Topping topping : toppings) total += topping.getPrice();
         return total;
     }
 }

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<head>
+  <meta charset="UTF-8">
+  <title>Pizza Paradise</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+  <h1><span>🍕</span> <a th:href="@{/}">Pizza Paradise</a></h1>
+  <nav>
+    <a th:href="@{/}">Forside</a>
+    <a th:href="@{/pizzas}">Se menu</a>
+    <a th:href="@{/users/create}">Opret bruger</a>
+    <a th:href="@{/users/login}">Log ind</a>
+  </nav>
+</header>
+<main>
+  <h2 th:text="${pizza.name}"></h2>
+  <p th:text="${pizza.description}"></p>
+  <p>Pris: <span th:text="${pizza.basePrice}"></span> kr.</p>
+  <a th:href="@{/pizzas}">← Tilbage til menu</a>
+</main>
+</body>
+</html>

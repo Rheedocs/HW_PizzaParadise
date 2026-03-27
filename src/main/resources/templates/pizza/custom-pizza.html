@@ -6,56 +6,36 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-
-<div class="container">
-
-    <h1>Lav din egen pizza</h1>
-
-    <form th:action="@{/pizzas/custom}" method="post" th:object="${pizza}">
-
-        <div>
-            <label>Navn:</label>
-            <input type="text" th:field="*{name}" required>
-        </div>
-
-        <br>
-
-        <div>
-            <label>Beskrivelse:</label>
-            <input type="text" th:field="*{description}">
-        </div>
-
-        <br>
-
-        <div>
-            <label>Base pris:</label>
-            <input type="number" step="0.1" th:field="*{basePrice}" required>
-        </div>
-
-        <br>
-
+<header>
+    <h1><span>🍕</span> <a th:href="@{/}">Pizza Paradise</a></h1>
+    <nav>
+        <a th:href="@{/pizzas}">Se menu</a>
+    </nav>
+</header>
+<main>
+    <h2>Lav din egen pizza</h2>
+    <p th:if="${bonusPoints != null}">Dine bonuspoint: <span th:text="${bonusPoints}"></span></p>
+    <p>Alle pizzaer har tomatsauce og koster 40 kr. Toppings lægges oveni.</p>
+    <form th:action="@{/pizzas/custom}" method="post">
         <h3>Vælg toppings:</h3>
-
         <div th:each="topping : ${toppings}">
             <label>
                 <input type="checkbox" name="toppingIds" th:value="${topping.id}">
                 <span th:text="${topping.name}"></span>
                 (<span th:text="${topping.price}"></span> kr)
             </label>
-            <br>
         </div>
-
-        <br>
-
-        <button type="submit">Opret pizza</button>
-
+        <div th:if="${bonusPoints > 0}">
+            <label>
+                <input type="checkbox" name="useBonusPoints" value="true">
+                Brug bonuspoint som rabat (<span th:text="${bonusPoints}"></span> kr.)
+            </label>
+        </div>
+        <button type="submit">Bestil egen pizza</button>
+        <input type="hidden" name="userId" th:value="${userId}">
     </form>
-
-    <br>
-
-    <a th:href="@{/pizzas}">← Tilbage til menu</a>
-
-</div>
-
+    <a class="section-link" th:if="${userId != null}" th:href="@{/orders/place/{id}(id=${userId})}">← Tilbage til bestilling</a>
+    <a class="section-link" th:if="${userId == null}" th:href="@{/pizzas}">← Tilbage til menu</a>
+</main>
 </body>
 </html>

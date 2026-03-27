@@ -2,10 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
-    <title>Pizza Paradise</title>
+    <title>Pizza Paradise - Opret bruger</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<!-- TODO: Implementer side -->
+<header>
+    <h1><span>🍕</span> <a th:href="@{/}">Pizza Paradise</a></h1>
+    <nav>
+        <a th:href="@{/}">Forside</a>
+        <a th:href="@{/pizzas}">Se menu</a>
+        <a th:href="@{/users/create}">Opret bruger</a>
+        <a th:href="@{/users/login}">Log ind</a>
+    </nav>
+</header>
+<main>
+    <h2>Opret bruger</h2>
+    <form th:action="@{/users/create}" method="post" th:object="${user}">
+        <label for="name">Navn:</label>
+        <input type="text" id="name" th:field="*{name}" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" th:field="*{email}" required>
+        <label for="address">Adresse:</label>
+        <input type="text" id="address" th:field="*{address}" required>
+        <button type="submit">Opret bruger</button>
+    </form>
+</main>
 </body>
 </html>

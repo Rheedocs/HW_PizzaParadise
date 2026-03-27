@@ -2,41 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
-    <title>Pizza Paradise - Ordre</title>
+    <title>Pizza Paradise - Ordrehistorik</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 <header>
-    <h1><span>🍕</span> Pizza Paradise</h1>
+    <h1><span>🍕</span> <a th:href="@{/}">Pizza Paradise</a></h1>
     <nav>
-        <a th:href="@{/pizzas}">Se menu</a>
-        <a th:href="@{/orders}">Mine ordrer</a>
         <a th:href="@{/}">Forside</a>
+        <a th:href="@{/pizzas}">Se menu</a>
     </nav>
 </header>
 <main>
-    <h1>Ordre detaljer</h1>
-    <p>Ordre ID: <span th:text="${order.id}"></span></p>
-    <p>Dato: <span th:text="${order.date}"></span></p>
-
-    <h2>Pizzaer</h2>
+    <h1>Ordrehistorik</h1>
     <table>
         <thead>
         <tr>
-            <th>Navn</th>
-            <th>Pris</th>
+            <th>Ordre ID</th>
+            <th>Dato</th>
+            <th>Total</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="pizza : ${order.pizzas}">
-            <td th:text="${pizza.name}"></td>
-            <td th:text="${pizza.calculatePrice()}"></td>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.date}"></td>
+            <td th:text="${order.calculateTotal()}"></td>
+            <td><a th:href="@{/orders/{id}(id=${order.id})}">Se detaljer</a></td>
         </tr>
         </tbody>
     </table>
-
-    <p><strong>Total: <span th:text="${total}"></span> kr</strong></p>
-    <a class="btn" th:href="@{/orders}">Tilbage til ordrehistorik</a>
+    <a class="btn" th:href="@{/}">Tilbage til forsiden</a>
 </main>
 </body>
 </html>

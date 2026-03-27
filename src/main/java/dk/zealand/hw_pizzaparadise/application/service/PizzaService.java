@@ -6,6 +6,7 @@ import dk.zealand.hw_pizzaparadise.domain.Topping;
 import dk.zealand.hw_pizzaparadise.domain.exceptions.PizzaNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,17 +19,14 @@ public class PizzaService {
     }
 
     public void savePizza(Pizza pizza) {
-        if (pizza == null) {
-            throw new IllegalArgumentException("Pizza må ikke være null");
-        }
+        if (pizza == null) throw new IllegalArgumentException("Pizza må ikke være null");
         pizzaRepository.savePizza(pizza);
     }
 
     public Pizza getPizzaById(int id) {
+        if (id <= 0) throw new IllegalArgumentException("Id skal være større end 0");
         Pizza pizza = pizzaRepository.getPizzaById(id);
-        if (pizza == null) {
-            throw new PizzaNotFoundException(id);
-        }
+        if (pizza == null) throw new PizzaNotFoundException(id);
         return pizza;
     }
 
@@ -37,6 +35,7 @@ public class PizzaService {
     }
 
     public void deletePizza(int id) {
+        if (id <= 0) throw new IllegalArgumentException("Ugyldigt pizza-id");
         pizzaRepository.deletePizza(id);
     }
 
@@ -44,16 +43,34 @@ public class PizzaService {
         return pizzaRepository.getAllToppings();
     }
 
-    public Pizza createCustomPizza(String name, String description, double basePrice, List<Topping> toppings) {
-        if (name == null || name.isEmpty() || description == null || description.isEmpty() || toppings == null || toppings.isEmpty()) {
-            throw new IllegalArgumentException("Navn, beskrivelse og toppings må ikke være tomme");
-        }
-        if (basePrice <= 0) {
-            throw new IllegalArgumentException("Basispris skal være større end 0");
-        }
-        Pizza customPizza = new Pizza(0, name, description, basePrice);
-        customPizza.setToppings(toppings);
+    public Pizza createCustomPizza(List<Integer> toppingIds) {
+        List<Topping> selectedToppings = getToppingsByIds(toppingIds);
+        String description = buildDescription(selectedToppings);
+        double totalPrice = calculateTotalPrice(selectedToppings);
+        Pizza customPizza = new Pizza(0, "Egen pizza", description, totalPrice);
+        customPizza.setCustom(true);
+        customPizza.setToppings(selectedToppings);
         pizzaRepository.savePizza(customPizza);
         return customPizza;
+    }
+
+    private double calculateTotalPrice(List<Topping> toppings) {
+        double total = 40.0;
+        for (Topping t : toppings) total += t.getPrice();
+        return total;
+    }
+
+    private String buildDescription(List<Topping> toppings) {
+        if (toppings.isEmpty()) return "Pizza uden toppings";
+        List<String> names = new ArrayList<>();
+        for (Topping t : toppings) names.add(t.getName());
+        return "Pizza med " + String.join(", ", names);
+    }
+
+    private List<Topping> getToppingsByIds(List<Integer> toppingIds) {
+        if (toppingIds == null) return new ArrayList<>();
+        List<Topping> selectedToppings = new ArrayList<>();
+        for (Topping t : pizzaRepository.getAllToppings()) if (toppingIds.contains(t.getId())) selectedToppings.add(t);
+        return selectedToppings;
     }
 }

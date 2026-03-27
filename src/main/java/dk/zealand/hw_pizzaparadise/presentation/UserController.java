@@ -16,34 +16,16 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public String getAllUsers(Model model) {
-        // TODO: Hent alle brugere og send til view – return "user/login"
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
-
-    @GetMapping("/{id}")
-    public String getUserById(@PathVariable int id, Model model) {
-        // TODO: Hent bruger og send til view – return "user/login"
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
-
     @GetMapping("/create")
     public String showCreateForm(Model model) {
-        // TODO: Vis formular til oprettelse af bruger – return "user/register"
-        throw new UnsupportedOperationException("Not implemented yet");
+        model.addAttribute("user", new User());
+        return "user/register";
     }
 
     @PostMapping("/create")
     public String createUser(@ModelAttribute User user) {
-        // TODO: Opret bruger og redirect til brugerliste – return "redirect:/users"
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
-
-    @GetMapping("/{id}/history")
-    public String getOrderHistory(@PathVariable int id, Model model) {
-        // TODO: Hent ordrehistorik for bruger og send til view – return "order/order-history"
-        throw new UnsupportedOperationException("Not implemented yet");
+        userService.createUser(user);
+        return "redirect:/users/login";
     }
 
     @GetMapping("/login")
@@ -52,9 +34,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String email, Model model) {
+    public String login(@RequestParam String email) {
         User user = userService.getUserByEmail(email);
-        model.addAttribute("besked", "Velkommen " + user.getName() + "!");
-        return "success";
+        return "redirect:/orders/place/" + user.getId();
     }
 }

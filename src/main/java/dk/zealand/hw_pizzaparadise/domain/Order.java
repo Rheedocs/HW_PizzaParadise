@@ -10,23 +10,27 @@ public class Order {
     private int userId;
     private LocalDate date;
     private List<Pizza> pizzas;
+    private double discount;
 
     public Order(int id, int userId) {
         this.id = id;
         this.userId = userId;
         this.date = LocalDate.now();
         this.pizzas = new ArrayList<>();
+        this.discount = 0;
     }
 
     public int getId() { return id; }
     public int getUserId() { return userId; }
     public LocalDate getDate() { return date; }
     public List<Pizza> getPizzas() { return pizzas; }
+    public double getDiscount() { return discount; }
 
     public void setId(int id) { this.id = id; }
     public void setUserId(int userId) { this.userId = userId; }
     public void setDate(LocalDate date) { this.date = date; }
     public void setPizzas(List<Pizza> pizzas) { this.pizzas = pizzas; }
+    public void setDiscount(double discount) { this.discount = discount; }
 
     public void addPizza(Pizza pizza) {
         this.pizzas.add(pizza);
@@ -34,9 +38,7 @@ public class Order {
 
     public double calculateTotal() {
         double total = 0;
-        for (Pizza pizza : pizzas) {
-            total += pizza.calculatePrice();
-        }
-        return total;
+        for (Pizza pizza : pizzas) total += pizza.calculatePrice();
+        return total - discount;
     }
 }

@@ -21,6 +21,11 @@ header h1 {
     font-size: 24px;
 }
 
+header h1 a {
+    text-decoration: none;
+    color: inherit;
+}
+
 /* Navigation */
 nav a {
     color: white;
@@ -73,6 +78,11 @@ input, select {
     border-radius: 4px;
 }
 
+input[type="checkbox"] {
+    display: inline;
+    width: auto;
+}
+
 label {
     display: block;
     font-weight: bold;
@@ -88,6 +98,7 @@ button, .btn {
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
+    margin-top: 16px;
 }
 
 button:hover, .btn:hover {
@@ -97,6 +108,12 @@ button:hover, .btn:hover {
 /* Links */
 a {
     color: #c0392b;
+}
+
+.section-link {
+    display: block;
+    margin-top : 16px;
+    margin-bottom: 16px;
 }
 
 /* Fejl */

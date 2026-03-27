@@ -6,15 +6,17 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-
-<div class="container">
-
-    <h1>Pizza Paradise Menu</h1>
-
-    <a th:href="@{/pizzas/custom}">Lav din egen pizza</a>
-
-    <br><br>
-
+<header>
+    <h1><span>🍕</span> <a th:href="@{/}">Pizza Paradise</a></h1>
+    <nav>
+        <a th:href="@{/}">Forside</a>
+        <a th:href="@{/pizzas}">Se menu</a>
+        <a th:href="@{/users/create}">Opret bruger</a>
+        <a th:href="@{/users/login}">Log ind</a>
+    </nav>
+</header>
+<main>
+    <h2>Pizza Paradise Menu</h2>
     <table>
         <thead>
         <tr>
@@ -28,17 +30,14 @@
         <tr th:each="pizza : ${pizzas}">
             <td th:text="${pizza.name}"></td>
             <td th:text="${pizza.description}"></td>
-            <td th:text="${pizza.basePrice}"></td>
+            <td th:text="|${pizza.basePrice} kr.|"></td>
             <td><a th:href="@{/pizzas/{id}(id=${pizza.id})}">Se detaljer</a></td>
         </tr>
         </tbody>
     </table>
-
     <div th:if="${pizzas == null or #lists.isEmpty(pizzas)}">
         <p>Ingen pizzaer fundet.</p>
     </div>
-
-</div>
-
+</main>
 </body>
 </html>

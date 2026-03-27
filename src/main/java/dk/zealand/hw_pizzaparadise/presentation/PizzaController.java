@@ -1,8 +1,9 @@
 package dk.zealand.hw_pizzaparadise.presentation;
 
+import dk.zealand.hw_pizzaparadise.application.service.OrderService;
 import dk.zealand.hw_pizzaparadise.application.service.PizzaService;
+import dk.zealand.hw_pizzaparadise.application.service.UserService;
 import dk.zealand.hw_pizzaparadise.domain.Pizza;
-import dk.zealand.hw_pizzaparadise.domain.Topping;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,63 +15,44 @@ import java.util.List;
 public class PizzaController {
 
     private final PizzaService pizzaService;
+    private final OrderService orderService;
+    private final UserService userService;
 
-    public PizzaController(PizzaService pizzaService) {
+    public PizzaController(PizzaService pizzaService, OrderService orderService, UserService userService) {
         this.pizzaService = pizzaService;
+        this.orderService = orderService;
+        this.userService = userService;
     }
 
-    // Henter alle pizzaer (matcher getAllPizzas fra repo)
     @GetMapping
     public String getAllPizzas(Model model) {
-        List<Pizza> pizzas = pizzaService.getAllPizzas();
-
-        model.addAttribute("pizzas", pizzas);
-
+        model.addAttribute("pizzas", pizzaService.getAllPizzas());
         return "pizza/menu";
     }
 
-    // ✅ Viser form + toppings (matcher getAllToppings fra repo)
     @GetMapping("/custom")
-    public String showCustomPizzaForm(Model model) {
-        model.addAttribute("pizza", new Pizza());
-
-        List<Topping> toppings = pizzaService.getAllToppings();
-        model.addAttribute("toppings", toppings);
-
+    public String showCustomPizzaForm(@RequestParam(required = false) Integer userId, Model model) {
+        model.addAttribute("toppings", pizzaService.getAllToppings());
+        model.addAttribute("userId", userId);
+        if (userId != null) model.addAttribute("bonusPoints", userService.getUserById(userId).getBonusPoints());
         return "pizza/custom-pizza";
     }
 
-    // ✅ Opretter custom pizza korrekt
     @PostMapping("/custom")
-    public String createCustomPizza(@ModelAttribute Pizza pizza,
-                                    @RequestParam(required = false) List<Integer> toppingIds) {
-
-        // Hent ALLE toppings fra DB
-        List<Topping> allToppings = pizzaService.getAllToppings();
-
-        // Filtrer kun de valgte toppings
-        List<Topping> selectedToppings = allToppings.stream()
-                .filter(t -> toppingIds != null && toppingIds.contains(t.getId()))
-                .toList();
-
-        // ⚠️ VIGTIGT: brug korrekt service metode (med basePrice!)
-        pizzaService.createCustomPizza(
-                pizza.getName(),
-                pizza.getDescription(),
-                pizza.getBasePrice(),
-                selectedToppings
-        );
-
+    public String createCustomPizza(@RequestParam(required = false) List<Integer> toppingIds,
+                                    @RequestParam(required = false) Integer userId,
+                                    @RequestParam(required = false, defaultValue = "false") boolean useBonusPoints) {
+        Pizza customPizza = pizzaService.createCustomPizza(toppingIds);
+        if (userId != null) {
+            orderService.placeOrder(userId, List.of(customPizza.getId()), useBonusPoints);
+            return "redirect:/orders/user/" + userId;
+        }
         return "redirect:/pizzas";
     }
 
-    // ✅ Henter pizza via ID (matcher repo)
     @GetMapping("/{id}")
     public String getPizzaById(@PathVariable int id, Model model) {
-        Pizza pizza = pizzaService.getPizzaById(id);
-
-        model.addAttribute("pizza", pizza);
-
-        return "pizza/menu"; // evt. lav separat detail-side senere
+        model.addAttribute("pizza", pizzaService.getPizzaById(id));
+        return "pizza/detail";
     }
 }

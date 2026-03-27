@@ -1,3 +1,10 @@
+DROP TABLE IF EXISTS order_pizzas;
+DROP TABLE IF EXISTS pizza_toppings;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS pizzas;
+DROP TABLE IF EXISTS toppings;
+DROP TABLE IF EXISTS users;
+
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -16,7 +23,8 @@ CREATE TABLE IF NOT EXISTS pizzas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     description VARCHAR(255),
-    base_price DOUBLE NOT NULL
+    base_price DOUBLE NOT NULL,
+    is_custom BOOLEAN DEFAULT FALSE
     );
 
 CREATE TABLE IF NOT EXISTS pizza_toppings (
@@ -31,6 +39,7 @@ CREATE TABLE IF NOT EXISTS orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     date DATE NOT NULL,
+    discount DOUBLE DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES users(id)
     );
 

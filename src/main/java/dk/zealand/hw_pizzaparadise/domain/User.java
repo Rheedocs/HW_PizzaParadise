@@ -8,6 +8,8 @@ public class User {
     private String address;
     private int bonusPoints;
 
+    public User() {}
+
     public User(int id, String name, String email, String address) {
         this.id = id;
         this.name = name;

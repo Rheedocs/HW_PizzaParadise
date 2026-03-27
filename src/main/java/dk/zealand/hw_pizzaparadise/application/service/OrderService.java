@@ -3,11 +3,13 @@ package dk.zealand.hw_pizzaparadise.application.service;
 import dk.zealand.hw_pizzaparadise.application.interfaces.IOrderRepository;
 import dk.zealand.hw_pizzaparadise.application.interfaces.IUserRepository;
 import dk.zealand.hw_pizzaparadise.domain.Order;
+import dk.zealand.hw_pizzaparadise.domain.Pizza;
 import dk.zealand.hw_pizzaparadise.domain.User;
 import dk.zealand.hw_pizzaparadise.domain.exceptions.EmptyOrderException;
 import dk.zealand.hw_pizzaparadise.domain.exceptions.InsufficientBonusPointsException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -22,11 +24,25 @@ public class OrderService {
     }
 
     public void placeOrder(Order order) {
-        if (order.getPizzas().isEmpty()) {
-            throw new EmptyOrderException();
-        }
+        if (order.getPizzas().isEmpty()) throw new EmptyOrderException();
         orderRepository.saveOrder(order);
         addBonusPointsToUser(order);
+    }
+
+    public void placeOrder(int userId, List<Integer> pizzaIds, boolean useBonusPoints) {
+        List<Pizza> pizzas = orderRepository.getPizzasByIds(pizzaIds);
+        Order order = new Order(0, userId);
+        order.setPizzas(pizzas);
+        if (useBonusPoints) applyDiscount(order, userId);
+        placeOrder(order);
+    }
+
+    private void applyDiscount(Order order, int userId) {
+        User user = userRepository.getUserById(userId);
+        double discount = user.getBonusPoints();
+        order.setDiscount(discount);
+        user.setBonusPoints(0);
+        userRepository.updateUser(user);
     }
 
     private void addBonusPointsToUser(Order order) {
@@ -55,9 +71,7 @@ public class OrderService {
     // TODO: Bruges når bonuspoint integreres i bestillingsflowet
     public double calculateDiscount(int userId) {
         User user = userRepository.getUserById(userId);
-        if (user.getBonusPoints() <= 0) {
-            throw new InsufficientBonusPointsException(user.getBonusPoints(), 1);
-        }
+        if (user.getBonusPoints() <= 0) throw new InsufficientBonusPointsException(user.getBonusPoints(), 1);
         return user.getBonusPoints() * 0.1;
     }
 }

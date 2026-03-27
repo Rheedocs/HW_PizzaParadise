@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Pizza Paradise - Bestil</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+    <h1><span>🍕</span> <a th:href="@{/}">Pizza Paradise</a></h1>
+    <nav>
+        <a th:href="@{/}">Forside</a>
+        <a th:href="@{/pizzas}">Se menu</a>
+    </nav>
+</header>
+<main>
+    <h2>Afgiv bestilling</h2>
+    <p>Dine bonuspoint: <span th:text="${bonusPoints}"></span></p>
+    <form th:action="@{/orders/place/{userId}(userId=${userId})}" method="post">
+        <h3>Vælg pizzaer:</h3>
+        <div th:each="pizza : ${pizzas}">
+            <label>
+                <input type="checkbox" name="pizzaIds" th:value="${pizza.id}">
+                <span th:text="${pizza.name}"></span>
+                (<span th:text="|${pizza.basePrice} kr.|"></span>)
+            </label>
+        </div>
+        <div th:if="${bonusPoints > 0}">
+            <label>
+                <input type="checkbox" name="useBonusPoints" value="true">
+                Brug bonuspoint som rabat (<span th:text="${bonusPoints}"></span> kr.)
+            </label>
+        </div>
+        <button type="submit">Bestil</button>
+        <a class="section-link" th:href="@{/pizzas/custom(userId=${userId})}">Lav din egen pizza</a>
+    </form>
+    <a class="section-link" th:href="@{/pizzas}">← Tilbage til menu</a>
+</main>
+</body>
+</html>
