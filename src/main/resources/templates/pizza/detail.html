@@ -17,6 +17,7 @@
 </header>
 <main>
   <h2 th:text="${pizza.name}"></h2>
+  <img th:src="${pizza.imageUrl}" th:alt="${pizza.name}" style="height:400px; border-radius:8px; margin-bottom:16px;">
   <p th:text="${pizza.description}"></p>
   <p>Pris: <span th:text="${pizza.basePrice}"></span> kr.</p>
   <a th:href="@{/pizzas}">← Tilbage til menu</a>

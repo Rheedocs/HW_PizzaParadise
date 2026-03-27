@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS pizzas (
     name VARCHAR(100) NOT NULL,
     description VARCHAR(255),
     base_price DOUBLE NOT NULL,
+    image_url VARCHAR(255),
     is_custom BOOLEAN DEFAULT FALSE
     );
 

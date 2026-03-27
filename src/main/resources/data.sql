@@ -12,7 +12,7 @@ INSERT INTO toppings (name, price) VALUES
 ('Løg', 5.00),
 ('Oliven', 8.00);
 
-INSERT INTO pizzas (name, description, base_price) VALUES
-('Margherita', 'Klassisk pizza med tomat og mozzarella', 79.00),
-('Pepperoni', 'Pizza med pepperoni og mozzarella', 89.00),
-('Vegetar', 'Pizza med champignon, løg og oliven', 85.00);
+INSERT INTO pizzas (name, description, base_price, image_url) VALUES
+('Margherita', 'Klassisk pizza med tomat og mozzarella', 79.00, '/images/Margherita.jpg'),
+('Pepperoni', 'Pizza med pepperoni og mozzarella', 89.00, '/images/Pepperoni.jpg'),
+('Vegetar', 'Pizza med champignon, løg og oliven', 85.00, '/images/Vegetar.jpg');

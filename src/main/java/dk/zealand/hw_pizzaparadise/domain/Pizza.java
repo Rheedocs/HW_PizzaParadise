@@ -11,6 +11,7 @@ public class Pizza {
     private double basePrice;
     private boolean isCustom;
     private List<Topping> toppings;
+    private String imageUrl;
 
     public Pizza(int id, String name, String description, double basePrice) {
         this.id = id;
@@ -52,4 +53,7 @@ public class Pizza {
         for (Topping topping : toppings) total += topping.getPrice();
         return total;
     }
+
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 }

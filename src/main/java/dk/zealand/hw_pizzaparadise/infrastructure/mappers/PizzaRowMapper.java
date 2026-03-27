@@ -15,6 +15,7 @@ public class PizzaRowMapper implements RowMapper<Pizza> {
                 rs.getString("description"),
                 rs.getDouble("base_price")
         );
+        pizza.setImageUrl(rs.getString("image_url"));
         pizza.setCustom(rs.getBoolean("is_custom"));
         return pizza;
     }
