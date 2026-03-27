@@ -1,7 +1,6 @@
 # Pizza Paradise – Pizzabestillingssystem
-<img src="docs/img.png" height="250">,<img src="docs/img_2.png" height="250">,<img src="docs/img_1.png" width="1000">
+<img src="docs/img.png" height="250">
 
----
 
 ## Beskrivelse
 
