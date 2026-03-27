@@ -1,9 +1,7 @@
 package dk.zealand.hw_pizzaparadise.infrastructure;
 
 import dk.zealand.hw_pizzaparadise.application.interfaces.IUserRepository;
-import dk.zealand.hw_pizzaparadise.domain.Pizza;
 import dk.zealand.hw_pizzaparadise.domain.User;
-import dk.zealand.hw_pizzaparadise.infrastructure.mappers.PizzaRowMapper;
 import dk.zealand.hw_pizzaparadise.infrastructure.mappers.UserRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
